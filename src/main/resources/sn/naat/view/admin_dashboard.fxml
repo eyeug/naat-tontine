@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sn.naat.controller.AdminDashboardController">
+    <top>
+        <VBox>
+            <HBox alignment="CENTER_LEFT" spacing="12" styleClass="barre-haut">
+                <padding><Insets top="14" right="20" bottom="14" left="20"/></padding>
+                <Label styleClass="titre-app" text="NAAT — Espace Administrateur"/>
+                <Label fx:id="labelBienvenue" styleClass="sous-titre" text="Bienvenue"/>
+                <HBox HBox.hgrow="ALWAYS"/>
+                <Button fx:id="boutonChangerEspace" onAction="#changerEspace" text="Changer d'espace" visible="false" managed="false"/>
+                <Button onAction="#ouvrirProfil" text="Mon profil"/>
+                <Button onAction="#seDeconnecter" styleClass="bouton-danger" text="Déconnexion"/>
+            </HBox>
+            <HBox spacing="14" styleClass="zone-kpi">
+                <VBox styleClass="kpi-carte" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label styleClass="kpi-titre" text="À TRAITER"/>
+                    <Label fx:id="kpiATraiter" styleClass="kpi-valeur" text="—"/>
+                    <Label fx:id="kpiATraiterNote" styleClass="kpi-note" text=""/>
+                </VBox>
+                <VBox styleClass="kpi-carte" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label styleClass="kpi-titre" text="COMPTES ACTIFS"/>
+                    <Label fx:id="kpiComptes" styleClass="kpi-valeur" text="—"/>
+                    <Label fx:id="kpiComptesNote" styleClass="kpi-note" text=""/>
+                </VBox>
+                <VBox styleClass="kpi-carte" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label styleClass="kpi-titre" text="TONTINES"/>
+                    <Label fx:id="kpiTontines" styleClass="kpi-valeur" text="—"/>
+                    <Label fx:id="kpiTontinesNote" styleClass="kpi-note" text=""/>
+                </VBox>
+                <VBox styleClass="kpi-carte" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label styleClass="kpi-titre" text="ADMINISTRATEURS"/>
+                    <Label fx:id="kpiAdmins" styleClass="kpi-valeur" text="—"/>
+                    <Label fx:id="kpiAdminsNote" styleClass="kpi-note" text=""/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <Tab text="Demandes de création de tontine">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox spacing="10">
+                        <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+                        <TableView fx:id="tableDemandesCreation" prefHeight="320">
+                            <columns>
+                                <TableColumn fx:id="colDcNom" text="Nom souhaité" prefWidth="200"/>
+                                <TableColumn fx:id="colDcType" text="Type" prefWidth="150"/>
+                                <TableColumn fx:id="colDcMontant" text="Cotisation" prefWidth="120"/>
+                                <TableColumn fx:id="colDcMembres" text="Nb membres" prefWidth="100"/>
+                            </columns>
+                        </TableView>
+                        <HBox spacing="10">
+                            <Button onAction="#validerCreation" styleClass="bouton-principal" text="Valider"/>
+                            <Button onAction="#refuserCreation" styleClass="bouton-danger" text="Refuser"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <Tab text="Nouvelles séries">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox spacing="10">
+                        <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+                        <Label styleClass="sous-titre" wrapText="true"
+                               text="Un gérant demande une nouvelle série quand sa tontine est clôturée (tous les membres ont reçu leur distribution). Valider ouvre une nouvelle série : les adhésions actuelles prennent fin (le gérant reste) et chaque ancien membre doit redemander à rejoindre ; refuser laisse la tontine clôturée."/>
+                        <TableView fx:id="tableNouvellesSeries" prefHeight="320">
+                            <columns>
+                                <TableColumn fx:id="colNsTontine" text="Tontine" prefWidth="220"/>
+                                <TableColumn fx:id="colNsGerant" text="Gérant" prefWidth="180"/>
+                                <TableColumn fx:id="colNsSerie" text="Série demandée" prefWidth="130"/>
+                                <TableColumn fx:id="colNsDate" text="Date de la demande" prefWidth="170"/>
+                            </columns>
+                        </TableView>
+                        <HBox spacing="10">
+                            <Button onAction="#validerNouvelleSerie" styleClass="bouton-principal" text="Valider"/>
+                            <Button onAction="#refuserNouvelleSerie" styleClass="bouton-danger" text="Refuser"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <Tab text="Mots de passe oubliés">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox spacing="10">
+                        <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+                        <Label styleClass="sous-titre" wrapText="true"
+                               text="Un utilisateur qui a oublié son mot de passe en fait la demande depuis l'écran de connexion. Contactez-le d'abord pour vérifier son identité (par exemple en l'appelant au numéro indiqué), puis générez un mot de passe provisoire : il ne sera affiché qu'une seule fois et l'utilisateur devra le changer dès sa prochaine connexion."/>
+                        <TableView fx:id="tableMotsDePasse" prefHeight="320">
+                            <columns>
+                                <TableColumn fx:id="colMpNom" text="Utilisateur" prefWidth="240"/>
+                                <TableColumn fx:id="colMpTel" text="Téléphone" prefWidth="160"/>
+                                <TableColumn fx:id="colMpDate" text="Date de la demande" prefWidth="170"/>
+                            </columns>
+                        </TableView>
+                        <HBox spacing="10">
+                            <Button onAction="#genererMotDePasseProvisoire" styleClass="bouton-principal" text="Identité vérifiée : générer un mot de passe provisoire"/>
+                            <Button onAction="#refuserReinitialisation" styleClass="bouton-danger" text="Refuser (identité non vérifiée)"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <Tab text="Comptes utilisateurs">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox spacing="10">
+                        <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+                        <TableView fx:id="tableUtilisateurs" prefHeight="320">
+                            <columns>
+                                <TableColumn fx:id="colUNom" text="Nom" prefWidth="180"/>
+                                <TableColumn fx:id="colUTel" text="Téléphone" prefWidth="130"/>
+                                <TableColumn fx:id="colUStatut" text="Statut" prefWidth="100"/>
+                                <TableColumn fx:id="colURole" text="Rôle" prefWidth="130"/>
+                            </columns>
+                        </TableView>
+                        <HBox spacing="10">
+                            <Button onAction="#suspendreCompte" styleClass="bouton-danger" text="Suspendre le compte"/>
+                            <Button onAction="#reactiverCompte" styleClass="bouton-principal" text="Réactiver le compte"/>
+                            <Button onAction="#promouvoirAdministrateur" text="Promouvoir Administrateur"/>
+                            <Button onAction="#retirerRoleAdministrateur" styleClass="bouton-danger" text="Retirer le rôle d'administrateur"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <Tab text="Toutes les tontines">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox spacing="10">
+                        <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+                        <TableView fx:id="tableTontines" prefHeight="400">
+                            <columns>
+                                <TableColumn fx:id="colTNom" text="Nom" prefWidth="200"/>
+                                <TableColumn fx:id="colTType" text="Type" prefWidth="150"/>
+                                <TableColumn fx:id="colTGerant" text="Gérant" prefWidth="220"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <Tab text="Prêts des gérants">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox spacing="10">
+                        <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+                        <Label styleClass="sous-titre" wrapText="true"
+                               text="Prêts demandés par un gérant sur sa propre tontine — il ne peut pas les valider lui-même (règle anti-conflit)."/>
+                        <TableView fx:id="tablePretsGerants" prefHeight="320">
+                            <columns>
+                                <TableColumn fx:id="colPgTontine" text="Tontine" prefWidth="180"/>
+                                <TableColumn fx:id="colPgGerant" text="Gérant" prefWidth="160"/>
+                                <TableColumn fx:id="colPgMontant" text="Montant" prefWidth="120"/>
+                                <TableColumn fx:id="colPgDuree" text="Durée (j)" prefWidth="90"/>
+                                <TableColumn fx:id="colPgMotif" text="Motif" prefWidth="200"/>
+                            </columns>
+                        </TableView>
+                        <HBox spacing="10">
+                            <Button onAction="#validerPretGerant" styleClass="bouton-principal" text="Valider"/>
+                            <Button onAction="#refuserPretGerant" styleClass="bouton-danger" text="Refuser"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <Tab text="Journal d'audit">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox spacing="10">
+                        <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+                        <TableView fx:id="tableAudit" prefHeight="400">
+                            <columns>
+                                <TableColumn fx:id="colAuditDate" text="Horodatage" prefWidth="180"/>
+                                <TableColumn fx:id="colAuditActeur" text="Acteur (id)" prefWidth="220"/>
+                                <TableColumn fx:id="colAuditAction" text="Action" prefWidth="300"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>

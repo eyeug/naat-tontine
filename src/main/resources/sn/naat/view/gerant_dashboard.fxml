@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sn.naat.controller.GerantDashboardController">
+    <top>
+        <VBox>
+            <HBox alignment="CENTER_LEFT" spacing="12" styleClass="barre-haut">
+                <padding><Insets top="14" right="20" bottom="14" left="20"/></padding>
+                <Label styleClass="titre-app" text="NAAT — Espace Gérant"/>
+                <Label fx:id="labelBienvenue" styleClass="sous-titre" text="Bienvenue"/>
+                <HBox HBox.hgrow="ALWAYS"/>
+                <Button fx:id="boutonChangerEspace" onAction="#changerEspace" text="Changer d'espace" visible="false" managed="false"/>
+                <Button onAction="#ouvrirProfil" text="Mon profil"/>
+                <Button onAction="#seDeconnecter" styleClass="bouton-danger" text="Déconnexion"/>
+            </HBox>
+            <HBox spacing="14" styleClass="zone-kpi">
+                <VBox styleClass="kpi-carte" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label styleClass="kpi-titre" text="MEMBRES ACTIFS"/>
+                    <Label fx:id="kpiMembres" styleClass="kpi-valeur" text="—"/>
+                    <Label fx:id="kpiMembresNote" styleClass="kpi-note" text=""/>
+                </VBox>
+                <VBox styleClass="kpi-carte" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label styleClass="kpi-titre" text="DEMANDES À TRAITER"/>
+                    <Label fx:id="kpiDemandes" styleClass="kpi-valeur" text="—"/>
+                    <Label fx:id="kpiDemandesNote" styleClass="kpi-note" text=""/>
+                </VBox>
+                <VBox styleClass="kpi-carte" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label styleClass="kpi-titre" text="CYCLE EN COURS"/>
+                    <Label fx:id="kpiCycle" styleClass="kpi-valeur" text="—"/>
+                    <Label fx:id="kpiCycleNote" styleClass="kpi-note" text=""/>
+                </VBox>
+                <VBox styleClass="kpi-carte" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label styleClass="kpi-titre" text="COTISATION"/>
+                    <Label fx:id="kpiCotisation" styleClass="kpi-valeur" text="—"/>
+                    <Label fx:id="kpiCotisationNote" styleClass="kpi-note" text=""/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <left>
+        <ScrollPane fitToWidth="true" prefWidth="280">
+            <VBox spacing="10" styleClass="panneau-lateral">
+                <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                <Label styleClass="titre-section" text="Mes tontines gérées"/>
+                <ListView fx:id="listeTontines" prefHeight="180"/>
+                <Button maxWidth="Infinity" onAction="#demanderNouvelleTontine" text="Demander une nouvelle tontine">
+                    <tooltip><Tooltip text="Envoie à l'administrateur une demande pour créer une autre tontine, distincte de celle sélectionnée. Elle n'est créée qu'après sa validation."/></tooltip>
+                </Button>
+                <Label fx:id="labelDureeTontine" wrapText="true" styleClass="sous-titre"/>
+
+                <Label styleClass="titre-section" text="Cycle"/>
+                <ComboBox fx:id="comboCycles" maxWidth="Infinity"/>
+                <Button fx:id="boutonNouveauCycle" maxWidth="Infinity" onAction="#demarrerNouveauCycle" text="Démarrer un nouveau cycle"/>
+                <Button fx:id="boutonCloturerCycle" maxWidth="Infinity" onAction="#cloturerCycle" text="Clôturer le cycle sélectionné"/>
+                <Button fx:id="boutonNouvelleSerie" maxWidth="Infinity" onAction="#demanderNouvelleSerie" text="Demander une nouvelle série"/>
+
+                <Button fx:id="boutonAvancerTour" maxWidth="Infinity" onAction="#avancerTour" text="Avancer le tour"/>
+                <Button fx:id="boutonLancerTirage" maxWidth="Infinity" onAction="#lancerTirage" text="Lancer le tirage"/>
+            </VBox>
+        </ScrollPane>
+    </left>
+
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <Tab text="Demandes d'adhésion">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox spacing="10">
+                        <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+                        <TableView fx:id="tableDemandesAdhesion" prefHeight="320">
+                            <columns>
+                                <TableColumn fx:id="colDaNom" text="Nom" prefWidth="180"/>
+                                <TableColumn fx:id="colDaTel" text="Téléphone" prefWidth="140"/>
+                                <TableColumn fx:id="colDaDate" text="Date" prefWidth="150"/>
+                            </columns>
+                        </TableView>
+                        <HBox spacing="10">
+                            <Button onAction="#validerAdhesion" styleClass="bouton-principal" text="Valider"/>
+                            <Button onAction="#refuserAdhesion" styleClass="bouton-danger" text="Refuser"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <Tab text="Prêts en attente">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox spacing="10">
+                        <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+                        <TableView fx:id="tablePrets" prefHeight="320">
+                            <columns>
+                                <TableColumn fx:id="colPretMembre" text="Membre" prefWidth="180"/>
+                                <TableColumn fx:id="colPretMontant" text="Montant" prefWidth="120"/>
+                                <TableColumn fx:id="colPretDuree" text="Durée (j)" prefWidth="100"/>
+                                <TableColumn fx:id="colPretMotif" text="Motif" prefWidth="200"/>
+                            </columns>
+                        </TableView>
+                        <HBox spacing="10">
+                            <Button onAction="#validerPret" styleClass="bouton-principal" text="Valider"/>
+                            <Button onAction="#refuserPret" styleClass="bouton-danger" text="Refuser"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <Tab text="Tours anticipés">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox spacing="10">
+                        <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+                        <Label styleClass="sous-titre" wrapText="true"
+                               text="Tontine Tour de rôle : un membre demande à recevoir plus tôt. Accorder le place juste après le bénéficiaire actuel : il sera le prochain à recevoir, après la clôture du cycle en cours. Le bénéficiaire actuel ne change pas."/>
+                        <TableView fx:id="tableToursAnticipes" prefHeight="300">
+                            <columns>
+                                <TableColumn fx:id="colTaMembre" text="Membre" prefWidth="180"/>
+                                <TableColumn fx:id="colTaMotif" text="Motif" prefWidth="360"/>
+                                <TableColumn fx:id="colTaDate" text="Date de la demande" prefWidth="160"/>
+                            </columns>
+                        </TableView>
+                        <HBox spacing="10">
+                            <Button onAction="#accorderTourAnticipe" styleClass="bouton-principal" text="Accorder"/>
+                            <Button onAction="#refuserTourAnticipe" styleClass="bouton-danger" text="Refuser"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <Tab text="Membres &amp; cotisation espèces">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox spacing="10">
+                        <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+                        <TableView fx:id="tableMembres" prefHeight="320">
+                            <columns>
+                                <TableColumn fx:id="colMembreNom" text="Nom" prefWidth="180"/>
+                                <TableColumn fx:id="colMembreSolde" text="Solde" prefWidth="120"/>
+                                <TableColumn fx:id="colMembreStatut" text="Statut" prefWidth="100"/>
+                                <TableColumn fx:id="colMembreActions" text="Actions" prefWidth="420" sortable="false"/>
+                            </columns>
+                        </TableView>
+                        <Label styleClass="sous-titre" text="Les actions s'appliquent au membre de la ligne. Vous pouvez aussi double-cliquer sur une ligne pour voir l'historique de ce membre."/>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <Tab text="Notifications">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox spacing="10">
+                        <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+                        <ListView fx:id="listeNotifications" prefHeight="400"/>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox styleClass="ecran-accueil" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="sn.naat.controller.LoginController">
+    <StackPane styleClass="panneau-marque" HBox.hgrow="ALWAYS" prefWidth="560" minWidth="420">
+        <Region styleClass="cercle-deco" maxWidth="420" maxHeight="420" StackPane.alignment="BOTTOM_RIGHT">
+            <StackPane.margin><Insets right="-120" bottom="-140"/></StackPane.margin>
+        </Region>
+        <Region styleClass="cercle-deco-or" maxWidth="180" maxHeight="180" StackPane.alignment="TOP_LEFT">
+            <StackPane.margin><Insets top="-60" left="-50"/></StackPane.margin>
+        </Region>
+        <VBox alignment="CENTER_LEFT" maxWidth="440" spacing="18">
+            <padding><Insets top="40" right="48" bottom="40" left="48"/></padding>
+            <Label styleClass="titre-hero" text="NAAT"/>
+            <Label styleClass="accroche" wrapText="true" text="La tontine d'hier, avec la confiance d'aujourd'hui."/>
+            <Label styleClass="sous-titre-hero" wrapText="true"
+                   text="Cotisez, suivez vos cycles et empruntez en toute transparence, avec votre groupe."/>
+            <VBox spacing="12" styleClass="liste-atouts">
+                <HBox alignment="CENTER_LEFT" spacing="12"><Label styleClass="pastille-atout" text="✓"/><Label styleClass="atout" wrapText="true" text="Cotisation en ligne par Wave ou Orange Money"/></HBox>
+                <HBox alignment="CENTER_LEFT" spacing="12"><Label styleClass="pastille-atout" text="✓"/><Label styleClass="atout" wrapText="true" text="Soldes, retards et historique toujours à jour"/></HBox>
+                <HBox alignment="CENTER_LEFT" spacing="12"><Label styleClass="pastille-atout" text="✓"/><Label styleClass="atout" wrapText="true" text="Prêts et tours anticipés encadrés par votre gérant"/></HBox>
+                <HBox alignment="CENTER_LEFT" spacing="12"><Label styleClass="pastille-atout" text="✓"/><Label styleClass="atout" wrapText="true" text="Chaque décision validée et tracée"/></HBox>
+            </VBox>
+        </VBox>
+    </StackPane>
+
+    <StackPane styleClass="zone-formulaire" HBox.hgrow="ALWAYS" prefWidth="520">
+        <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" styleClass="defilement-transparent">
+            <StackPane>
+                <padding><Insets top="32" right="32" bottom="32" left="32"/></padding>
+                <VBox maxWidth="360" spacing="8" styleClass="carte-connexion">
+                    <Label styleClass="titre-carte" text="Bon retour parmi nous"/>
+                    <Label styleClass="sous-titre" wrapText="true" text="Connectez-vous pour accéder à vos tontines."/>
+                    <Label styleClass="label-champ" text="Téléphone"/>
+                    <TextField fx:id="champTel" promptText="77 123 45 67"/>
+
+                    <Label styleClass="label-champ" text="Mot de passe"/>
+                    <PasswordField fx:id="champMotDePasse" promptText="••••••••"/>
+
+                    <Button fx:id="boutonConnexion" defaultButton="true" maxWidth="Infinity" prefHeight="38"
+                            onAction="#seConnecter" styleClass="bouton-principal" text="Se connecter"/>
+
+                    <Label fx:id="labelErreur" styleClass="label-erreur" wrapText="true"/>
+
+                    <Hyperlink onAction="#motDePasseOublie" text="Mot de passe oublié ?"/>
+                    <Hyperlink onAction="#allerInscription" text="Pas encore de compte — S'inscrire"/>
+                    <Hyperlink onAction="#voirTontinesPubliques" text="Voir les tontines disponibles sans se connecter"/>
+                </VBox>
+            </StackPane>
+        </ScrollPane>
+    </StackPane>
+</HBox>

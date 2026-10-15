@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sn.naat.controller.TontinesPubliquesController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="barre-haut">
+            <padding><Insets top="14" right="20" bottom="14" left="20"/></padding>
+            <Label styleClass="titre-app" text="NAAT"/>
+            <Label fx:id="labelSousTitre" styleClass="sous-titre" text="Tontines disponibles — consultation libre"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Button fx:id="boutonConnexion" onAction="#retourConnexion" text="Se connecter"/>
+            <Button fx:id="boutonInscription" onAction="#allerInscription" styleClass="bouton-principal" text="Créer un compte"/>
+            <Button fx:id="boutonProfil" onAction="#ouvrirProfil" text="Mon profil" visible="false" managed="false"/>
+            <Button fx:id="boutonDeconnexion" onAction="#seDeconnecter" styleClass="bouton-danger" text="Déconnexion" visible="false" managed="false"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="14">
+            <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+
+            <Label styleClass="titre-section" text="Toutes les tontines actives"/>
+
+            <TableView fx:id="tableTontines" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colNom" text="Nom" prefWidth="200"/>
+                    <TableColumn fx:id="colStatut" text="Statut" prefWidth="130"/>
+                    <TableColumn fx:id="colType" text="Type" prefWidth="140"/>
+                    <TableColumn fx:id="colCotisation" text="Cotisation" prefWidth="120"/>
+                    <TableColumn fx:id="colFrequence" text="Fréquence" prefWidth="120"/>
+                    <TableColumn fx:id="colMembres" text="Membres" prefWidth="100"/>
+                    <TableColumn fx:id="colDescription" text="Description" prefWidth="260"/>
+                </columns>
+            </TableView>
+
+            <HBox spacing="10">
+                <Button fx:id="boutonRejoindre" onAction="#demanderAdhesion" styleClass="bouton-principal"
+                        text="Demander à rejoindre cette tontine"/>
+                <Button fx:id="boutonCreerTontine" onAction="#creerTontine" text="Créer une tontine" visible="false" managed="false"/>
+            </HBox>
+
+            <Label styleClass="sous-titre" wrapText="true"
+                   text="Vous pouvez demander à rejoindre une tontine sans créer de compte au préalable : votre demande sera examinée par le gérant, qui créera votre compte à la validation."/>
+        </VBox>
+    </center>
+</BorderPane>

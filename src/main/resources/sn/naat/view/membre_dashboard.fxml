@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sn.naat.controller.MembreDashboardController">
+    <top>
+        <VBox>
+            <HBox alignment="CENTER_LEFT" spacing="12" styleClass="barre-haut">
+                <padding><Insets top="14" right="20" bottom="14" left="20"/></padding>
+                <Label styleClass="titre-app" text="NAAT — Espace Membre"/>
+                <Label fx:id="labelBienvenue" styleClass="sous-titre" text="Bienvenue"/>
+                <HBox HBox.hgrow="ALWAYS"/>
+                <Button fx:id="boutonChangerEspace" onAction="#changerEspace" text="Changer d'espace" visible="false" managed="false"/>
+                <Button onAction="#ouvrirProfil" text="Mon profil"/>
+                <Button onAction="#seDeconnecter" styleClass="bouton-danger" text="Déconnexion"/>
+            </HBox>
+            <HBox spacing="14" styleClass="zone-kpi">
+                <VBox styleClass="kpi-carte" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label styleClass="kpi-titre" text="TOTAL COTISÉ"/>
+                    <Label fx:id="kpiTotal" styleClass="kpi-valeur" text="—"/>
+                    <Label fx:id="kpiTotalNote" styleClass="kpi-note" text=""/>
+                </VBox>
+                <VBox styleClass="kpi-carte" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label styleClass="kpi-titre" text="CYCLE EN COURS"/>
+                    <Label fx:id="kpiEtat" styleClass="kpi-valeur" text="—"/>
+                    <Label fx:id="kpiEtatNote" styleClass="kpi-note" text=""/>
+                </VBox>
+                <VBox styleClass="kpi-carte" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label styleClass="kpi-titre" text="RETARDS"/>
+                    <Label fx:id="kpiRetards" styleClass="kpi-valeur" text="—"/>
+                    <Label fx:id="kpiRetardsNote" styleClass="kpi-note" text=""/>
+                </VBox>
+                <VBox styleClass="kpi-carte" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label styleClass="kpi-titre" text="NOTIFICATIONS"/>
+                    <Label fx:id="kpiNotifs" styleClass="kpi-valeur" text="—"/>
+                    <Label fx:id="kpiNotifsNote" styleClass="kpi-note" text=""/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <left>
+        <ScrollPane fitToWidth="true" prefWidth="280">
+            <VBox spacing="10" styleClass="panneau-lateral">
+                <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                <Label styleClass="titre-section" text="Mes tontines"/>
+                <ListView fx:id="listeTontines" prefHeight="300"/>
+            </VBox>
+        </ScrollPane>
+    </left>
+
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true">
+            <VBox spacing="14">
+                <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+
+                <HBox spacing="10">
+                    <Button fx:id="boutonCotiser" onAction="#ouvrirCotisation" styleClass="bouton-principal" text="Cotiser"/>
+                    <Button fx:id="boutonDemanderPret" onAction="#ouvrirDemandePret" text="Demander un prêt" visible="false" managed="false"/>
+                    <Button fx:id="boutonRembourserPret" onAction="#ouvrirRemboursementPret" text="Rembourser un prêt" visible="false" managed="false"/>
+                    <Button fx:id="boutonTourAnticipe" onAction="#ouvrirDemandeTourAnticipe" text="Demander un tour anticipé" visible="false" managed="false"/>
+                    <Button fx:id="boutonRejoindre" onAction="#ouvrirDemandeAdhesion" text="Rejoindre une tontine"/>
+                    <Button fx:id="boutonSoldeDistribution" onAction="#ouvrirSoldeDistribution" text="Solde &amp; distribution"/>
+                </HBox>
+                <Label styleClass="encadre-info" wrapText="true" maxWidth="Infinity"
+                       text="Cotisation en ligne : Wave ou Orange Money uniquement. Pour payer en espèces, remettez le montant directement à votre gérant, qui l'enregistrera."/>
+
+                <Label fx:id="labelAideBoutons" styleClass="sous-titre" wrapText="true"/>
+                <Label fx:id="labelCycle" wrapText="true" maxWidth="Infinity"/>
+                <Label fx:id="labelHistorique" styleClass="titre-section" text="Historique des transactions"/>
+                <Label fx:id="labelRetards" wrapText="true"/>
+                <TableView fx:id="tableTransactions" prefHeight="300">
+                    <columns>
+                        <TableColumn fx:id="colDate" text="Date" prefWidth="150"/>
+                        <TableColumn fx:id="colType" text="Type" prefWidth="150"/>
+                        <TableColumn fx:id="colMontant" text="Montant" prefWidth="120"/>
+                        <TableColumn fx:id="colDetail" text="Détail" prefWidth="300"/>
+                        <TableColumn fx:id="colStatut" text="Statut" prefWidth="100"/>
+                    </columns>
+                </TableView>
+
+                <Label styleClass="titre-section" text="Notifications"/>
+                <ListView fx:id="listeNotifications" prefHeight="150"/>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
